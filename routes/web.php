@@ -20,6 +20,7 @@ $router->post('signup/', 'UserController@register');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/home', function () {return "Home Page";});
+    $router->patch('/passchange', 'UserController@password');
     $router->get('/signout', 'AuthController@logout');
     $router->delete('/walkout', 'UserController@delete');
 });

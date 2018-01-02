@@ -29,9 +29,30 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function password(Request $request)
+    {
+      $this->validate($request, [
+          'password' => 'string | required | confirmed'
+      ]);
+
+      $user = $request->user();
+
+      if (app('hash')->check($request->opassword, $user->password)){
+        $user->password = app('hash')->make($request->password);
+        $user->save();
+
+        return new JsonResponse([
+            'message' => 'Successfully password changed!'
+        ], 200);
+      }
+
+      return new JsonResponse([
+          'message' => 'An error occurred with the old password, it does not match the one entered in the form.'
+      ], 400);
+    }
+
     public function delete(Request $request)
     {
-      $this->middleware('auth');
       $user = $request->user();
       $user->delete();
 
