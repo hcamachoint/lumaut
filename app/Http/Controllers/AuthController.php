@@ -42,7 +42,7 @@ class AuthController extends Controller
 
       return new JsonResponse([
           'message' => 'Successfully logout.'
-      ], 400);
+      ], 200);
     }
 
 }

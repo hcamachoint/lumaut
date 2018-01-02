@@ -27,7 +27,6 @@ class UserController extends Controller
             'message' => 'Successfully registered!',
             'authorization' => $user->api_token,
         ], 200);
-
     }
 
     public function delete(Request $request)
@@ -36,9 +35,9 @@ class UserController extends Controller
       $user = $request->user();
       $user->delete();
 
-      return [
-          'message' => 'Successfully deleted.'
-      ];
+      return new JsonResponse([
+          'message' => 'Successfully deleted.',
+      ], 200);
     }
 
 }
