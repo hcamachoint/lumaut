@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
           $table->string('email', 64)->unique();
           $table->string('password', 64);
           $table->string('api_token', 128)->index();
+          $table->boolean('confirmed')->default(0);
+          $table->string('token', 254)->nullable();
           $table->softDeletes();
           $table->timestamps();
       });
