@@ -15,9 +15,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('home/', ['middleware' => 'auth', function () {
-    return "Home Page";
-}]);
+$router->post('signin/', 'AuthController@login');
+$router->post('signup/', 'UserController@register');
 
-$router->post('/login', 'AuthController@login');
-$router->post('/register', 'UserController@register');
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('/home', function () {return "Home Page";});
+    $router->get('/signout', 'AuthController@logout');
+    $router->delete('/walkout', 'UserController@delete');
+});

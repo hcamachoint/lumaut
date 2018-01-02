@@ -13,21 +13,17 @@ class CreateUsersTable extends Migration
      */
      public function up()
      {
-         Schema::create('users', function (Blueprint $table) {
-             $table->increments('id');
-             $table->string('name', 256);
-             $table->string('email', 64)->unique();
-             $table->string('password', 64);
-             $table->string('api_token', 128)->index();
-             $table->timestamps();
-         });
+       Schema::create('users', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('name', 256);
+          $table->string('email', 64)->unique();
+          $table->string('password', 64);
+          $table->string('api_token', 128)->index();
+          $table->softDeletes();
+          $table->timestamps();
+      });
      }
 
-     /**
-      * Reverse the migrations.
-      *
-      * @return void
-      */
      public function down()
      {
          Schema::dropIfExists('users');

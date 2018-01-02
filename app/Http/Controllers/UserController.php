@@ -30,4 +30,15 @@ class UserController extends Controller
 
     }
 
+    public function delete(Request $request)
+    {
+      $this->middleware('auth');
+      $user = $request->user();
+      $user->delete();
+
+      return [
+          'message' => 'Successfully deleted.'
+      ];
+    }
+
 }
